@@ -1,7 +1,29 @@
 <x-layout title='Jobapply | Form'>
     <div class="px-24 py-8">
+<!-- Success Alert -->
+@if(session('success'))
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Success!</strong>
+        <span class="block sm:inline">{{ session('success') }}</span>
+        <button type="button" class="absolute top-0 right-0 px-4 py-3" aria-label="Close">
+            <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.828 15.828a4 4 0 0 0-5.656 0l-2-2a4 4 0 0 0-5.656-5.656L4.172 8.172a4 4 0 0 0 0 5.656l-2 2a4 4 0 0 0 5.656 5.656l2-2a4 4 0 0 0 5.656 0l2-2a4 4 0 0 0 0-5.656l2-2a4 4 0 0 0-5.656-5.656l-2 2a4 4 0 0 0-5.656 0l-2-2a4 4 0 0 0-5.656 5.656l2 2a4 4 0 0 0 5.656 5.656l2-2a4 4 0 0 0 5.656 0l2-2a4 4 0 0 0 0-5.656z"/></svg>
+        </button>
+    </div>
+@endif
 
-      <form action="{{route('apply')}}" method="post">
+<!-- Error Alert -->
+@if(session('error'))
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Error!</strong>
+        <span class="block sm:inline">{{ session('error') }}</span>
+        <button type="button" class="absolute top-0 right-0 px-4 py-3" aria-label="Close">
+            <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.828 15.828a4 4 0 0 0-5.656 0l-2-2a4 4 0 0 0-5.656-5.656L4.172 8.172a4 4 0 0 0 0 5.656l-2 2a4 4 0 0 0 5.656 5.656l2-2a4 4 0 0 0 5.656 0l2-2a4 4 0 0 0 0-5.656l2-2a4 4 0 0 0-5.656-5.656l-2 2a4 4 0 0 0-5.656 0l-2-2a4 4 0 0 0-5.656 5.656l2 2a4 4 0 0 0 5.656 5.656l2-2a4 4 0 0 0 5.656 0l2-2a4 4 0 0 0 0-5.656z"/></svg>
+        </button>
+    </div>
+@endif
+
+
+      <form action="{{ route('apply') }}" method="post" enctype="multipart/form-data">
         @csrf
       <!-- Stepper -->
   <div data-hs-stepper="">
@@ -1168,7 +1190,7 @@
             <!-- End Select -->
           
             <div class="relative">
-              <input type="text" class="peer py-3 px-4 ps-11 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Your District">
+              <input type="text" class="peer py-3 px-4 ps-11 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Your District" name="district">
               <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
                 <svg class="shrink-0 size-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
@@ -1179,7 +1201,7 @@
 
             <div class="max-w-sm space-y-3 flex-1">
               <div class="relative">
-                <input type="text" class="peer py-3 px-4 ps-11 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Your Highest level of education">
+                <input type="text" class="peer py-3 px-4 ps-11 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Your Highest level of education" name="level">
                 <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
                   <svg class="shrink-0 size-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
@@ -1329,14 +1351,13 @@
                 </p>
 
                 <div class="mt-2">
-                  <form class="max-w-sm">
                     <label for="file-input" class="sr-only">Choose file</label>
                     <input type="file" name="passport" id="pass" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
                       file:bg-gray-50 file:border-0
                       file:me-4
                       file:py-2 file:px-4
                      ">
-                  </form>                
+                                 
                 </div>
               </div>
 
@@ -1345,14 +1366,12 @@
                 </p>
 
                 <div class="mt-2">
-                  <form class="max-w-sm">
                     <label for="file-input" class="sr-only">Choose file</label>
                     <input type="file" name="cv" id="cd" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
                       file:bg-gray-50 file:border-0
                       file:me-4
                       file:py-2 file:px-4
-                     ">
-                  </form>                
+                     ">           
                 </div>
               </div>
 
